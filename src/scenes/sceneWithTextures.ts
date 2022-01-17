@@ -2,13 +2,24 @@ import { Mesh, StandardMaterial, Texture } from "@babylonjs/core";
 import { SimpleScene } from "./simpleScene";
 
 export class SceneWithTextures extends SimpleScene {
+    getTexture(textureSrc: string, scale = 1): Texture {
+        const texture = new Texture(`./textures/${textureSrc}`, this.scene);
+        texture.uScale = scale;
+        texture.vScale = scale;
+
+        return texture;
+    }
+
     createBall(): Mesh {
         const ballMat = new StandardMaterial("ballMat", this.scene);
 
-        ballMat.diffuseTexture = new Texture(
-            "./textures/rock/rock-diffuse.jpg",
-            this.scene
-        );
+        ballMat.diffuseTexture = this.getTexture("rock/rock-diffuse.jpg");
+
+        ballMat.bumpTexture = this.getTexture("rock/rock-normal.jpg");
+        ballMat.invertNormalMapX = true;
+        ballMat.invertNormalMapY = true;
+
+        ballMat.ambientTexture = this.getTexture("rock/rock-ao.jpg");
 
         const ball = super.createBall();
 
@@ -19,31 +30,24 @@ export class SceneWithTextures extends SimpleScene {
 
     createGround(): Mesh {
         const groundMat = new StandardMaterial("groundMat", this.scene);
-        const uvScale = 4;
-        const textureArray: Texture[] = [];
+        const uvScale = 10;
 
-        const diffTex = new Texture(
-            "./textures/rock/floor-diffuse.jpg",
-            this.scene
+        groundMat.diffuseTexture = this.getTexture(
+            "floor/floor-diffuse.jpg",
+            uvScale
         );
-        textureArray.push(diffTex);
-        groundMat.diffuseTexture = diffTex;
 
-        const normalTex = new Texture(
-            "./textures/rock/floor-normal.jpg",
-            this.scene
+        groundMat.bumpTexture = this.getTexture(
+            "floor/floor-normal.jpg",
+            uvScale
         );
-        textureArray.push(normalTex);
-        groundMat.bumpTexture = normalTex;
+        groundMat.invertNormalMapX = true;
+        groundMat.invertNormalMapY = true;
 
-        const aoTex = new Texture("./textures/rock/floor-ao.jpg", this.scene);
-        textureArray.push(aoTex);
-        groundMat.ambientTexture = aoTex;
-
-        textureArray.forEach((item) => {
-            item.uScale = uvScale;
-            item.vScale = uvScale;
-        });
+        groundMat.ambientTexture = this.getTexture(
+            "floor/floor-ao.jpg",
+            uvScale
+        );
 
         const ground = super.createGround();
 

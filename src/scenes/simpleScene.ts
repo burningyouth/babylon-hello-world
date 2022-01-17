@@ -35,7 +35,7 @@ export class SimpleScene {
         return camera;
     }
 
-    createLight(): HemisphericLight {
+    createHemisphericLight(): HemisphericLight {
         const light = new HemisphericLight(
             "light",
             new Vector3(0, 1, 0),
@@ -74,7 +74,7 @@ export class SimpleScene {
 
     createScene(): void {
         this.createCamera();
-        this.createLight();
+        this.createHemisphericLight();
         this.createBall();
         this.createGround();
     }
