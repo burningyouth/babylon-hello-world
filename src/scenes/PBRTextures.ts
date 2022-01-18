@@ -2,11 +2,8 @@ import { CubeTexture, Mesh, MeshBuilder, PBRMaterial } from "@babylonjs/core";
 import { SceneWithTextures } from "./sceneWithTextures";
 
 export class PBRTexturesScene extends SceneWithTextures {
-    createEnvironment(): void {
-        const envTex = CubeTexture.CreateFromPrefilteredData(
-            "./textures/env/environment.env",
-            this.scene
-        );
+    createEnvironment(src = "./textures/env/environment.env"): void {
+        const envTex = CubeTexture.CreateFromPrefilteredData(src, this.scene);
 
         this.scene.environmentTexture = envTex;
 

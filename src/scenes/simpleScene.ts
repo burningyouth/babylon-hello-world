@@ -23,10 +23,10 @@ export class SimpleScene {
         window.addEventListener("resize", this.engine.resize);
     }
 
-    createCamera(): FreeCamera {
+    createCamera(px = 0, py = -1, pz = 3): FreeCamera {
         const camera = new FreeCamera(
             "camera",
-            new Vector3(0, 1, -3),
+            new Vector3(px, py, pz),
             this.scene
         );
         camera.attachControl();
@@ -42,7 +42,7 @@ export class SimpleScene {
             this.scene
         );
 
-        light.intensity = 0.8;
+        light.intensity = 0.5;
 
         return light;
     }

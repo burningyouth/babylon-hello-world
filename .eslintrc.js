@@ -13,6 +13,7 @@ module.exports = {
     ],
     extends: ["eslint-config-silence", "plugin:@typescript-eslint/recommended"],
     rules: {
+        "no-use-before-define": 0,
         "init-declarations": 0,
         "import/no-mutable-exports": 0,
         "no-undef": 0,

@@ -30,6 +30,10 @@
     import { SceneWithTextures } from "./scenes/sceneWithTextures";
     import { SimpleScene } from "./scenes/simpleScene";
     import { PBRTexturesScene } from "./scenes/PBRTextures";
+    import { Route } from "tinro";
+    import HelloWorld from "./pages/HelloWorld.svelte";
+    import BasicModel from "./pages/BasicModel.svelte";
+    import Nav from "./components/Nav.svelte";
 
     let simpleSceneCanvas: HTMLCanvasElement;
 
@@ -37,22 +41,30 @@
 
     let PBRTexturesCanvas: HTMLCanvasElement;
 
-
     onMount(() => {
         const simpleScene = new SimpleScene(simpleSceneCanvas);
         const simpleTexturesScene = new SceneWithTextures(simpleTextureCanvas);
         const PBRScene = new PBRTexturesScene(PBRTexturesCanvas);
-        simpleScene.createScene()
-        simpleTexturesScene.createScene()
-        PBRScene.createScene()
+        simpleScene.createScene();
+        simpleTexturesScene.createScene();
+        PBRScene.createScene();
     });
+
 </script>
 
-<main>
-    <h1>Babylon Hello world</h1>
-    <canvas bind:this="{simpleSceneCanvas}"></canvas>
-    <br/>
-    <canvas bind:this="{simpleTextureCanvas}"></canvas>
-    <br/>
-    <canvas bind:this="{PBRTexturesCanvas}"></canvas>
-</main>
+<Route let:meta>
+    <Nav url="{meta.url}"/>
+    <main>
+        <Route path="/">
+            <h1>This is the main page</h1>
+        </Route>
+        <Route path="/hello-world">
+            <h1>Babylon hello world</h1>
+            <HelloWorld />
+        </Route>
+        <Route path="/models">
+            <h1>Models!</h1>
+            <BasicModel />
+        </Route>
+    </main>
+</Route>
