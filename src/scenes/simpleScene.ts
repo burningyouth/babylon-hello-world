@@ -16,19 +16,16 @@ export class SimpleScene {
         this.engine = new Engine(canvas, true);
         this.scene = new Scene(this.engine);
 
-        this.engine.runRenderLoop(() => {
-            this.scene.render();
-        });
-
-        window.addEventListener("resize", this.engine.resize);
+        window.addEventListener("resize", () => this.engine.resize());
     }
 
-    createCamera(px = 0, py = -1, pz = 3): FreeCamera {
+    createCamera(px = 0, py = -1, pz = 3, rx = 0, ry = 0, rz = 0): FreeCamera {
         const camera = new FreeCamera(
             "camera",
             new Vector3(px, py, pz),
             this.scene
         );
+        camera.rotation = new Vector3(rx, ry, rz);
         camera.attachControl();
         camera.speed = 0.25;
 
@@ -77,5 +74,9 @@ export class SimpleScene {
         this.createHemisphericLight();
         this.createBall();
         this.createGround();
+
+        this.engine.runRenderLoop(() => {
+            this.scene.render();
+        });
     }
 }

@@ -4,8 +4,7 @@
 
 <nav>
   <a href="/" class:active-link="{url === '/'}">Main</a>
-  <a href="/hello-world" class:active-link="{url === '/hello-world'}">Hello World</a>
-  <a href="/models" class:active-link="{url === '/models'}">Models</a>
+  <a href="/model1" class:active-link="{url === '/models'}">Models and shadows</a>
 </nav>
 
 <style>

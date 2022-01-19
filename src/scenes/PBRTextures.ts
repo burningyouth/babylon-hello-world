@@ -15,6 +15,10 @@ export class PBRTexturesScene extends SceneWithTextures {
         this.createBall();
         this.createGround();
         this.createEnvironment();
+
+        this.engine.runRenderLoop(() => {
+            this.scene.render();
+        });
     }
 
     createBall(): Mesh {
@@ -24,7 +28,7 @@ export class PBRTexturesScene extends SceneWithTextures {
 
         ballMat.albedoTexture = this.getTexture("rock-2/rock-2-diffuse.jpg");
 
-        ballMat.bumpTexture = this.getTexture("rock-2/rock-2-normal.jpg");
+        ballMat.bumpTexture = this.getTexture("rock-2/rock-2.jpg");
         ballMat.invertNormalMapX = true;
         ballMat.invertNormalMapY = true;
 
